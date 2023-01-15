@@ -1,13 +1,38 @@
-import React, { useState } from 'react';
-import './Panel.css';
-import { viewportWidth } from '../index';
+import React, { useState } from "react";
+import "./Panel.css";
+import { globalStates } from "../index";
+import PropTypes from "prop-types";
 
-function Panel() {
+// Set of buttons to change current projection
+function ChangeProjectionButtons(props) {
+  const projections = ["Section", "Plan", "Axon"];
+  return (
+    <>
+      {projections.map((projection) => {
+        return (
+          <button
+            key={projection}
+            onClick={() => props.onChangeProjection(projection)}
+          >
+            {projection}
+          </button>
+        );
+      })}
+    </>
+  );
+}
+
+ChangeProjectionButtons.propTypes = {
+  onChangeProjection: PropTypes.func,
+};
+
+// Panel
+function Panel(props) {
   // Initial state
-  const shouldExpandOnLoad = viewportWidth > 900 ? true : false;
-  const initDisplay = shouldExpandOnLoad ? 'flex' : 'none';
-  const initToggleIcon = shouldExpandOnLoad ? 'expand_less' : 'expand_more';
-  const initToggleText = shouldExpandOnLoad ? 'Collapse' : 'Expand';
+  const shouldExpandOnLoad = globalStates.viewportWidth > 900 ? true : false;
+  const initDisplay = shouldExpandOnLoad ? "flex" : "none";
+  const initToggleIcon = shouldExpandOnLoad ? "expand_less" : "expand_more";
+  const initToggleText = shouldExpandOnLoad ? "Collapse" : "Expand";
   const initState = {
     expanded: shouldExpandOnLoad,
     display: initDisplay,
@@ -19,19 +44,19 @@ function Panel() {
   const [panelState, setPanelState] = useState(initState);
 
   const onPanelToggle = () => {
-    if(panelState.expanded) {
+    if (panelState.expanded) {
       setPanelState({
         expanded: false,
-        display: 'none',
-        toggleIcon: 'expand_more',
-        toggleText: 'Expand',
+        display: "none",
+        toggleIcon: "expand_more",
+        toggleText: "Expand",
       });
     } else {
-        setPanelState({
+      setPanelState({
         expanded: true,
-        display: 'flex',
-        toggleIcon: 'expand_less',
-        toggleText: 'Collapse',
+        display: "flex",
+        toggleIcon: "expand_less",
+        toggleText: "Collapse",
       });
     }
   };
@@ -39,10 +64,7 @@ function Panel() {
   return (
     <div className="panel-container">
       {/* Toggle button */}
-      <button
-        className="panel-toggle"
-        onClick={onPanelToggle}
-      >
+      <button className="panel-toggle" onClick={onPanelToggle}>
         <span className="material-symbols-outlined">
           {panelState.toggleIcon}
         </span>
@@ -50,12 +72,19 @@ function Panel() {
       </button>
 
       {/* Panel section */}
-      <section
-        className="panel"
-        style={{ display: panelState.display }}
-      ></section>
+      <section className="panel" style={{ display: panelState.display }}>
+        <ChangeProjectionButtons
+          onChangeProjection={(projection) =>
+            props.onChangeProjection(projection)
+          }
+        />
+      </section>
     </div>
   );
 }
+
+Panel.propTypes = {
+  onChangeProjection: PropTypes.func,
+};
 
 export default Panel;
