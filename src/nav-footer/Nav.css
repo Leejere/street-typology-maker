@@ -1,0 +1,28 @@
+/* ====== Navigation bar ====== */
+
+nav * {
+  cursor: pointer;
+}
+
+.nav-left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-title {
+  line-height: 0.7;
+  margin: 0;
+}
+
+.nav-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-subtitle {
+  font-size: 1rem;
+}

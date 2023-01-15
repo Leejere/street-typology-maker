@@ -1,13 +1,69 @@
+:root {
+  --hero-reg: #353795;
+  --hero-faded: #c8b7d9;
+  --primary-reg: #ef8872;
+  --primary-faded: #fec7ba;
+  --highlight-reg: #fdd310;
+  --text-gray: #999;
+  --light-gray: #ccc;
+  --fade-gray: #eee;
+  --nav-height: 6vh;
+  --phone-ht-reduction: 10vh;
+  /* On phones height of main body should be reduced */
+  --main-padding: 2rem;
+  /* padding outside of the entire page */
+  --light-border: 1px solid var(--light-gray);
+  --shadow-layer-1: 0.05rem 0.1rem 0.1rem 0.02rem rgba(0 0 0 / 20%);
+  --shadow-layer-2: 0.15rem 0.2rem 0.2rem 0.02rem rgba(0 0 0 / 20%);
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  font-family: "JetBrains Mono", Hack, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Positioning of modules */
+
+.nav {
+  position: fixed;
+  background-color: var(--hero-reg);
+  width: 100%;
+  height: var(--nav-height);
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+  color: white;
+}
+
+.artboard {
+  position: fixed;
+  top: var(--nav-height);
+  height: calc(100% - var(--nav-height));
+  width: 100%;
+  background-color: #999;
+}
+
+.panel-container {
+  position: fixed;
+  top: var(--nav-height);
+  width: 100%;
+  pointer-events: none;
+  padding: 2rem;
+}
+
+@media only screen and (max-width: 500px) {
+  .panel-container {
+    padding: 1rem;
+  }
 }

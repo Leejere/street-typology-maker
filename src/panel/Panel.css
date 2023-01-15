@@ -1,0 +1,25 @@
+.panel-container {
+  height: calc(100% - var(--nav-height));
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.panel-container * {
+  pointer-events: auto;
+}
+
+.panel {
+  width: clamp(20%, 20rem, 100%);
+  height: 20vh;
+  display: flex;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: var(--shadow-layer-1);
+}
+
+.panel-toggle {
+  display: flex;
+  align-items: center;
+  width: 6.5rem;
+}
