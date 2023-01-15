@@ -12,7 +12,7 @@ function ChangeProjectionButtons(props) {
         return (
           <button
             key={projection}
-            onClick={() => props.onChangeProjection(projection)}
+            onClick={() => props.handleProjChange(projection)}
           >
             {projection}
           </button>
@@ -23,7 +23,7 @@ function ChangeProjectionButtons(props) {
 }
 
 ChangeProjectionButtons.propTypes = {
-  onChangeProjection: PropTypes.func,
+  handleProjChange: PropTypes.func,
 };
 
 // Panel
@@ -74,9 +74,7 @@ function Panel(props) {
       {/* Panel section */}
       <section className="panel" style={{ display: panelState.display }}>
         <ChangeProjectionButtons
-          onChangeProjection={(projection) =>
-            props.onChangeProjection(projection)
-          }
+          handleProjChange={(projection) => props.handleProjChange(projection)}
         />
       </section>
     </div>
@@ -84,7 +82,7 @@ function Panel(props) {
 }
 
 Panel.propTypes = {
-  onChangeProjection: PropTypes.func,
+  handleProjChange: PropTypes.func,
 };
 
 export default Panel;

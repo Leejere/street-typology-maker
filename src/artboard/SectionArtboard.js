@@ -1,9 +1,5 @@
-import React from 'react';
+import React from "react";
 
 export default function SectionArtboard() {
-  return (
-    <div>
-
-    </div>
-  );
+  return <section className="artboard">Section</section>;
 }

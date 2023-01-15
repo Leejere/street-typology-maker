@@ -19,8 +19,10 @@ function App() {
     <>
       <Nav />
       <Artboard projection={projection} />
+
+      {/* `handleProjChange` deals with change between Section, Axon, or Plan */}
       <Panel
-        onChangeProjection={(projection) => {
+        handleProjChange={(projection) => {
           setProjection(projection);
         }}
       />
