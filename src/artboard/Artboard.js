@@ -5,19 +5,20 @@ import SectionArtboard from "./SectionArtboard";
 import PlanArtboard from "./PlanArtboard";
 import AxonArtboard from "./AxonArtboard";
 
-function Artboard(props) {
-  switch (props.projection) {
+function Artboard({ projection, scheme }) {
+  switch (projection) {
     case "Section":
-      return <SectionArtboard />;
+      return <SectionArtboard scheme={scheme} />;
     case "Plan":
-      return <PlanArtboard />;
+      return <PlanArtboard scheme={scheme} />;
     default:
-      return <AxonArtboard />;
+      return <AxonArtboard scheme={scheme} />;
   }
 }
 
 Artboard.propTypes = {
   projection: PropTypes.string.isRequired,
+  scheme: PropTypes.array.isRequired,
 };
 
 export default Artboard;

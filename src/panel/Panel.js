@@ -74,7 +74,9 @@ function Panel(props) {
       {/* Panel section */}
       <section className="panel" style={{ display: panelState.display }}>
         <ChangeProjectionButtons
-          handleProjChange={(projection) => props.handleProjChange(projection)}
+          handleProjChange={(newProjection) =>
+            props.handleProjChange(newProjection)
+          }
         />
       </section>
     </div>
