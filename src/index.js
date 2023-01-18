@@ -81,10 +81,11 @@ const initScheme = [
 function App() {
   const [projection, setProjection] = useState("Section");
   const [scheme, setScheme] = useState(initScheme);
+  const [buildings, setBuildings] = useState([0, 0]);
   return (
     <>
       <Nav />
-      <Artboard projection={projection} scheme={scheme} />
+      <Artboard projection={projection} scheme={scheme} buildings={buildings} />
 
       {/* `handleProjChange` deals with change between Section, Axon, or Plan */}
       <Panel

@@ -5,22 +5,7 @@
 }
 
 .section-artboard {
-  background-color: bisque;
   width: fit-content;
   position: relative;
   display: flex;
-}
-
-.section-layer {
-  position: absolute;
-  background-color: aquamarine;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
-}
-
-.block {
-  position: relative;
-  background-color: blue;
-  border: 1px solid white;
 }
