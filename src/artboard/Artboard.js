@@ -18,6 +18,7 @@ export const BUILDING_DICT = {
   },
 };
 
+// Presenter
 function Artboard({ projection, scheme, buildings }) {
   const projectionArtboard =
     projection === "Section" ? (

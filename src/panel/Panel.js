@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Panel.css";
 import { globalStates } from "../index";
+import { paramsContext } from "../index";
 import PropTypes from "prop-types";
 
 // Set of buttons to change current projection
-function ChangeProjectionButtons(props) {
+function ReprojectButtons() {
+  const context = useContext(paramsContext);
   const projections = ["Section", "Plan", "Axon"];
   return (
     <>
@@ -12,7 +14,7 @@ function ChangeProjectionButtons(props) {
         return (
           <button
             key={projection}
-            onClick={() => props.handleProjChange(projection)}
+            onClick={() => context.setProjection(projection)}
           >
             {projection}
           </button>
@@ -22,12 +24,12 @@ function ChangeProjectionButtons(props) {
   );
 }
 
-ChangeProjectionButtons.propTypes = {
+ReprojectButtons.propTypes = {
   handleProjChange: PropTypes.func,
 };
 
 // Panel
-function Panel(props) {
+function Panel() {
   // Initial state
   const shouldExpandOnLoad = globalStates.viewportWidth > 900 ? true : false;
   const initDisplay = shouldExpandOnLoad ? "flex" : "none";
@@ -40,9 +42,11 @@ function Panel(props) {
     toggleText: initToggleText,
   };
 
-  // Set state
+  // Set panel state
   const [panelState, setPanelState] = useState(initState);
 
+  // Inherit context
+  const context = useContext(paramsContext);
   const onPanelToggle = () => {
     if (panelState.expanded) {
       setPanelState({
@@ -73,11 +77,7 @@ function Panel(props) {
 
       {/* Panel section */}
       <section className="panel" style={{ display: panelState.display }}>
-        <ChangeProjectionButtons
-          handleProjChange={(newProjection) =>
-            props.handleProjChange(newProjection)
-          }
-        />
+        <ReprojectButtons />
       </section>
     </div>
   );
