@@ -18,15 +18,14 @@ export const BUILDING_DICT = {
   },
 };
 
-// Presenter
-function Artboard({ projection, scheme, buildings }) {
+function Artboard({ projection }) {
   const projectionArtboard =
-    projection === "Section" ? (
-      <SectionArtboard scheme={scheme} buildings={buildings} />
+    projection === "Axon" ? (
+      <AxonArtboard />
     ) : projection === "Plan" ? (
-      <PlanArtboard scheme={scheme} buildings={buildings} />
+      <PlanArtboard />
     ) : (
-      <AxonArtboard scheme={scheme} buildings={buildings} />
+      <SectionArtboard />
     );
 
   return <section className="artboard">{projectionArtboard}</section>;

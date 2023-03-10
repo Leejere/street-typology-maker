@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import {
   SectionLayer,
@@ -7,6 +7,7 @@ import {
   SectionBuilding,
 } from "./.components";
 import { BUILDING_DICT } from "./Artboard";
+import { paramsContext } from "..";
 
 const SECTION_ARTBOARD_HEIGHT_PIXELS = 500;
 
@@ -29,8 +30,9 @@ function getLayerOffsetHeightsPixels(scheme) {
     );
 }
 
-export default function SectionArtboard({ scheme, buildings }) {
-  const totalRoadWidthFeet = scheme[0].blocks.reduce(
+export default function SectionArtboard() {
+  const context = useContext(paramsContext);
+  const totalRoadWidthFeet = context.scheme[0].blocks.reduce(
     (partialWidth, item) => partialWidth + item.widthFeet,
     0
   );
@@ -38,32 +40,32 @@ export default function SectionArtboard({ scheme, buildings }) {
   const totalRoadWidthPixels = totalRoadWidthFeet * WIDTH_PIXELS_PER_FEET;
 
   const leftBuildingWidthPixels =
-    BUILDING_DICT[buildings[0]].widthFeet * WIDTH_PIXELS_PER_FEET;
+    BUILDING_DICT[context.buildings[0]].widthFeet * WIDTH_PIXELS_PER_FEET;
 
   const rightBuildingWidthPixels =
-    BUILDING_DICT[buildings[1]].widthFeet * WIDTH_PIXELS_PER_FEET;
+    BUILDING_DICT[context.buildings[1]].widthFeet * WIDTH_PIXELS_PER_FEET;
 
   const leftBuildingHeightPixels =
-    BUILDING_DICT[buildings[0]].heightFeet * HEIGHT_PIXELS_PER_FEET;
+    BUILDING_DICT[context.buildings[0]].heightFeet * HEIGHT_PIXELS_PER_FEET;
 
   const rightBuildingHeightPixels =
-    BUILDING_DICT[buildings[1]].heightFeet * HEIGHT_PIXELS_PER_FEET;
+    BUILDING_DICT[context.buildings[1]].heightFeet * HEIGHT_PIXELS_PER_FEET;
 
   const leftBuildingOffsetTop =
     SECTION_ARTBOARD_HEIGHT_PIXELS -
-    BUILDING_DICT[buildings[0]].heightFeet * HEIGHT_PIXELS_PER_FEET;
+    BUILDING_DICT[context.buildings[0]].heightFeet * HEIGHT_PIXELS_PER_FEET;
 
   const rightBuildingOffsetTop =
     SECTION_ARTBOARD_HEIGHT_PIXELS -
-    BUILDING_DICT[buildings[1]].heightFeet * HEIGHT_PIXELS_PER_FEET;
+    BUILDING_DICT[context.buildings[1]].heightFeet * HEIGHT_PIXELS_PER_FEET;
 
   // Total width = road plus buildings
   const totalWidthPixels =
     totalRoadWidthPixels + leftBuildingWidthPixels + rightBuildingWidthPixels;
 
-  const layerOffsetHeights = getLayerOffsetHeightsPixels(scheme);
+  const layerOffsetHeights = getLayerOffsetHeightsPixels(context.scheme);
 
-  const sectionLayers = scheme.map((layerItem, index) => (
+  const sectionLayers = context.scheme.map((layerItem, index) => (
     <SectionLayer
       key={index}
       layerParams={layerItem}
