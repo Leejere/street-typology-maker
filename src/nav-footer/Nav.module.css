@@ -1,0 +1,39 @@
+.nav {
+  position: fixed;
+  background-color: var(--hero-reg);
+  width: 100%;
+  height: var(--nav-height);
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+  color: white;
+}
+
+.nav * {
+  cursor: pointer;
+}
+
+.left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.title {
+  line-height: 0.7;
+  margin: 0;
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+}
