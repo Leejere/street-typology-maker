@@ -33,8 +33,6 @@ function Artboard({ projection }) {
 
 Artboard.propTypes = {
   projection: PropTypes.string.isRequired,
-  scheme: PropTypes.array.isRequired,
-  buildings: PropTypes.array.isRequired,
 };
 
 export default Artboard;

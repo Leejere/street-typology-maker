@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import "./Panel.css";
+import panelStyles from "./Panel.module.css";
 import { Context } from "../index";
 import PropTypes from "prop-types";
 
@@ -60,9 +60,9 @@ function Panel({ shouldExpandOnLoad }) {
   };
 
   return (
-    <div className="panel-container">
+    <div className={panelStyles.package}>
       {/* Toggle button */}
-      <button className="panel-toggle" onClick={onPanelToggle}>
+      <button className={panelStyles.toggle} onClick={onPanelToggle}>
         <span className="material-symbols-outlined">
           {panelState.toggleIcon}
         </span>
@@ -70,7 +70,10 @@ function Panel({ shouldExpandOnLoad }) {
       </button>
 
       {/* Panel section */}
-      <section className="panel" style={{ display: panelState.display }}>
+      <section
+        className={panelStyles.main}
+        style={{ display: panelState.display }}
+      >
         <ReprojectButtons />
       </section>
     </div>
