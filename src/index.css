@@ -31,31 +31,9 @@ body {
   box-sizing: border-box;
 }
 
-/* Positioning of modules */
-
-.nav {
-  position: fixed;
-  background-color: var(--hero-reg);
-  width: 100%;
-  height: var(--nav-height);
-  padding: 0 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 2;
-  color: white;
-}
-
 .artboard {
   position: fixed;
   top: var(--nav-height);
   height: calc(100% - var(--nav-height));
   width: 100%;
-  background-color: #999;
-}
-
-@media only screen and (max-width: 500px) {
-  .panel-container {
-    padding: 1rem;
-  }
 }

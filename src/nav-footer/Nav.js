@@ -1,16 +1,16 @@
-import "./Nav.css";
+import navStyles from "./Nav.module.css";
 import React from "react";
 
-function Nav(props) {
+function Nav() {
   const appName = "StMaker";
   const appSlogan = "Typology-ing your street";
   return (
-    <nav className="nav">
-      <div className="nav-left">
-        <h1 className="nav-title">{appName}</h1>
+    <nav className={navStyles.nav}>
+      <div className={navStyles.left}>
+        <h1 className={navStyles.title}>{appName}</h1>
       </div>
-      <div className="nav-right">
-        <h2 className="nav-subtitle">{appSlogan}</h2>
+      <div className={navStyles.right}>
+        <h2 className={navStyles.subtitle}>{appSlogan}</h2>
         <span className="material-symbols-outlined">info</span>
       </div>
     </nav>
