@@ -7,7 +7,6 @@ import Panel from "./panel/Panel";
 
 export const globalStates = {
   viewportWidth: document.documentElement.clientWidth,
-  projection: "Section",
 };
 
 // Initial projection and reducer function to set projection
