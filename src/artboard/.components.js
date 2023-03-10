@@ -11,12 +11,14 @@ export function BlockFront({ blockParams }) {
   const widthPixels = blockParams.widthFeet * WIDTH_PIXELS_PER_FEET;
   return (
     <div
-      className="block"
+      className="block-front"
       style={{
         height: `${BLOCK_HEIGHT_PIXELS}px`,
         width: `${widthPixels}px`,
       }}
-    ></div>
+    >
+      {/* Determining block layers based on `blockParams` */}
+    </div>
   );
 }
 

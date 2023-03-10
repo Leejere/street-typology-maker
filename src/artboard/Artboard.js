@@ -19,14 +19,16 @@ export const BUILDING_DICT = {
 };
 
 function Artboard({ projection, scheme, buildings }) {
-  switch (projection) {
-    case "Section":
-      return <SectionArtboard scheme={scheme} buildings={buildings} />;
-    case "Plan":
-      return <PlanArtboard scheme={scheme} buildings={buildings} />;
-    default:
-      return <AxonArtboard scheme={scheme} buildings={buildings} />;
-  }
+  const projectionArtboard =
+    projection === "Section" ? (
+      <SectionArtboard scheme={scheme} buildings={buildings} />
+    ) : projection === "Plan" ? (
+      <PlanArtboard scheme={scheme} buildings={buildings} />
+    ) : (
+      <AxonArtboard scheme={scheme} buildings={buildings} />
+    );
+
+  return <section className="artboard">{projectionArtboard}</section>;
 }
 
 Artboard.propTypes = {

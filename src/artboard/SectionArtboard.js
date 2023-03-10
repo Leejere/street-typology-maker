@@ -72,30 +72,28 @@ export default function SectionArtboard({ scheme, buildings }) {
     />
   ));
   return (
-    <section className="artboard">
-      <section
-        className="section-artboard"
-        style={{
-          height: `${SECTION_ARTBOARD_HEIGHT_PIXELS}px`,
-          width: `${totalWidthPixels}px`,
-        }}
-      >
-        <SectionBuilding
-          widthPixels={leftBuildingWidthPixels}
-          heightPixels={leftBuildingHeightPixels}
-          offsetTopPixels={leftBuildingOffsetTop}
-          offsetLeftPixels={0}
-        />
+    <section
+      className="section-artboard"
+      style={{
+        height: `${SECTION_ARTBOARD_HEIGHT_PIXELS}px`,
+        width: `${totalWidthPixels}px`,
+      }}
+    >
+      <SectionBuilding
+        widthPixels={leftBuildingWidthPixels}
+        heightPixels={leftBuildingHeightPixels}
+        offsetTopPixels={leftBuildingOffsetTop}
+        offsetLeftPixels={0}
+      />
 
-        {sectionLayers}
+      {sectionLayers}
 
-        <SectionBuilding
-          widthPixels={rightBuildingWidthPixels}
-          heightPixels={rightBuildingHeightPixels}
-          offsetTopPixels={rightBuildingOffsetTop}
-          offsetLeftPixels={leftBuildingWidthPixels + totalRoadWidthPixels}
-        />
-      </section>
+      <SectionBuilding
+        widthPixels={rightBuildingWidthPixels}
+        heightPixels={rightBuildingHeightPixels}
+        offsetTopPixels={rightBuildingOffsetTop}
+        offsetLeftPixels={leftBuildingWidthPixels + totalRoadWidthPixels}
+      />
     </section>
   );
 }
