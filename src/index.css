@@ -30,10 +30,3 @@ body {
   font-family: "JetBrains Mono", Hack, sans-serif;
   box-sizing: border-box;
 }
-
-.artboard {
-  position: fixed;
-  top: var(--nav-height);
-  height: calc(100% - var(--nav-height));
-  width: 100%;
-}
