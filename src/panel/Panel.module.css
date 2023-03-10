@@ -25,6 +25,10 @@
   box-shadow: var(--shadow-layer-1);
 }
 
+.main * {
+  pointer-events: auto;
+}
+
 .toggle {
   display: flex;
   align-items: center;

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import "./Artboard.css";
+import React from "react";
+import artboardStyles from "./Artboard.module.css";
 import PropTypes from "prop-types";
 import SectionArtboard from "./SectionArtboard";
 import PlanArtboard from "./PlanArtboard";
@@ -28,7 +28,9 @@ function Artboard({ projection }) {
       <SectionArtboard />
     );
 
-  return <section className="artboard">{projectionArtboard}</section>;
+  return (
+    <section className={artboardStyles.artboard}>{projectionArtboard}</section>
+  );
 }
 
 Artboard.propTypes = {

@@ -1,0 +1,9 @@
+.artboard {
+  position: fixed;
+  top: var(--nav-height);
+  height: calc(100% - var(--nav-height));
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -7,6 +7,7 @@ import {
 } from "./.components";
 import { BUILDING_DICT } from "./Artboard";
 import { Context } from "..";
+import sectionStyles from "./SectionArboard.module.css";
 
 const SECTION_ARTBOARD_HEIGHT_PIXELS = 500;
 
@@ -74,7 +75,7 @@ export default function SectionArtboard() {
   ));
   return (
     <section
-      className="section-artboard"
+      className={sectionStyles.section}
       style={{
         height: `${SECTION_ARTBOARD_HEIGHT_PIXELS}px`,
         width: `${totalWidthPixels}px`,
