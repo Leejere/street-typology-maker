@@ -122,7 +122,7 @@ function App() {
     >
       <Nav />
       {/* Artboard: presenting the result */}
-      <Artboard projection={projection} scheme={scheme} buildings={buildings} />
+      <Artboard projection={projection} />
       {/* Panel: Setting parameters */}
       <Panel />
     </paramsContext.Provider>
