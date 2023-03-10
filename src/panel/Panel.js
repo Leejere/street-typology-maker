@@ -7,20 +7,18 @@ import PropTypes from "prop-types";
 function ReprojectButtons() {
   const context = useContext(Context);
   const projections = ["Section", "Plan", "Axon"];
-  return (
-    <>
-      {projections.map((projection) => {
-        return (
-          <button
-            key={projection}
-            onClick={() => context.setProjection(projection)}
-          >
-            {projection}
-          </button>
-        );
-      })}
-    </>
-  );
+
+  const buttonsEls = projections.map((projection) => {
+    return (
+      <button
+        key={projection}
+        onClick={() => context.setProjection(projection)}
+      >
+        {projection}
+      </button>
+    );
+  });
+  return <>{buttonsEls}</>;
 }
 
 ReprojectButtons.propTypes = {
