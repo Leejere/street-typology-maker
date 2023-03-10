@@ -1,13 +1,15 @@
-import React, { useState, useReducer } from "react";
+import React, { useReducer } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import Artboard from "./artboard/Artboard";
 import Nav from "./nav-footer/Nav";
 import Panel from "./panel/Panel";
 
-export const globalStates = {
-  viewportWidth: document.documentElement.clientWidth,
-};
+/**
+ * ======= Setting initial states and reducer functions ========
+ */
+
+const initViewportWidth = document.documentElement.clientWidth;
 
 // Initial projection and reducer function to set projection
 const initProjection = "Section";
@@ -93,7 +95,11 @@ const buildingsReducer = (building, action) => {
 };
 
 // Context of currently selected projection, scheme, and buildings
-export const paramsContext = React.createContext();
+export const Context = React.createContext();
+
+/**
+ * ======= Global app component ========
+ */
 
 function App() {
   // State 1: Projection: either section, or plan, or axon
@@ -109,7 +115,7 @@ function App() {
     initBuildings
   );
   return (
-    <paramsContext.Provider
+    <Context.Provider
       value={{
         scheme: scheme,
         setScheme: schemeDispatch,
@@ -120,13 +126,15 @@ function App() {
       }}
     >
       <Nav />
-      {/* Artboard: presenting the result */}
       <Artboard projection={projection} />
-      {/* Panel: Setting parameters */}
-      <Panel />
-    </paramsContext.Provider>
+      <Panel shouldExpandOnLoad={initViewportWidth > 900} />
+    </Context.Provider>
   );
 }
+
+/**
+ * ======= Insert global app component to DOM ========
+ */
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import PropTypes from "prop-types";
 import {
   SectionLayer,
   WIDTH_PIXELS_PER_FEET,
@@ -7,7 +6,7 @@ import {
   SectionBuilding,
 } from "./.components";
 import { BUILDING_DICT } from "./Artboard";
-import { paramsContext } from "..";
+import { Context } from "..";
 
 const SECTION_ARTBOARD_HEIGHT_PIXELS = 500;
 
@@ -31,7 +30,7 @@ function getLayerOffsetHeightsPixels(scheme) {
 }
 
 export default function SectionArtboard() {
-  const context = useContext(paramsContext);
+  const context = useContext(Context);
   const totalRoadWidthFeet = context.scheme[0].blocks.reduce(
     (partialWidth, item) => partialWidth + item.widthFeet,
     0
@@ -99,8 +98,3 @@ export default function SectionArtboard() {
     </section>
   );
 }
-
-SectionArtboard.propTypes = {
-  scheme: PropTypes.array.isRequired,
-  buildings: PropTypes.array.isRequired,
-};

@@ -1,12 +1,11 @@
 import React, { useState, useContext } from "react";
 import "./Panel.css";
-import { globalStates } from "../index";
-import { paramsContext } from "../index";
+import { Context } from "../index";
 import PropTypes from "prop-types";
 
 // Set of buttons to change current projection
 function ReprojectButtons() {
-  const context = useContext(paramsContext);
+  const context = useContext(Context);
   const projections = ["Section", "Plan", "Axon"];
   return (
     <>
@@ -29,9 +28,8 @@ ReprojectButtons.propTypes = {
 };
 
 // Panel
-function Panel() {
+function Panel({ shouldExpandOnLoad }) {
   // Initial state
-  const shouldExpandOnLoad = globalStates.viewportWidth > 900 ? true : false;
   const initDisplay = shouldExpandOnLoad ? "flex" : "none";
   const initToggleIcon = shouldExpandOnLoad ? "expand_less" : "expand_more";
   const initToggleText = shouldExpandOnLoad ? "Collapse" : "Expand";
@@ -45,8 +43,6 @@ function Panel() {
   // Set panel state
   const [panelState, setPanelState] = useState(initState);
 
-  // Inherit context
-  const context = useContext(paramsContext);
   const onPanelToggle = () => {
     if (panelState.expanded) {
       setPanelState({
@@ -84,7 +80,7 @@ function Panel() {
 }
 
 Panel.propTypes = {
-  handleProjChange: PropTypes.func,
+  shouldExpandOnLoad: PropTypes.bool,
 };
 
 export default Panel;
