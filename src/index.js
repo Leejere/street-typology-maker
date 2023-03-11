@@ -25,6 +25,7 @@ const initScheme = [
     name: "At Grade",
     leftOffsetFeet: 0,
     heightFeet: 14,
+    show: true,
     blocks: [
       {
         type: "Sidewalk",
@@ -60,6 +61,7 @@ const initScheme = [
     name: "1st Elevated",
     heightFeet: 10,
     leftOffsetFeet: 20,
+    show: false,
     blocks: [
       {
         type: "Drivelane",

@@ -15,12 +15,14 @@
   gap: 0.3rem;
 }
 
-.actionButton * {
-  font-size: 0.9rem;
-}
-
 .actionButton {
-  padding: 0 0.5rem;
+  padding: 0.2rem;
   height: fit-content;
   width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.actionButton * {
+  font-size: 0.9rem;
 }
