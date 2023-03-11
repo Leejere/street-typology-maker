@@ -9,17 +9,15 @@ export const HEIGHT_PXS_PER_FT = WIDTH_PXS_PER_FT * HGT_WIDTH_DISTORT;
 export const BLOCK_HEIGHT_PXS = 100;
 
 export function BlockFront({ blockParams }) {
-  const widthPixels = blockParams.widthFeet * WIDTH_PXS_PER_FT;
+  const widthPxs = blockParams.widthFeet * WIDTH_PXS_PER_FT;
   return (
     <div
       className={blockStyles.front}
       style={{
         height: `${BLOCK_HEIGHT_PXS}px`,
-        width: `${widthPixels}px`,
+        width: `${widthPxs}px`,
       }}
-    >
-      {/* Determining block layers based on `blockParams` */}
-    </div>
+    ></div>
   );
 }
 
@@ -50,7 +48,7 @@ export function LayerSection({ layerParams, topPxs, leftPxs }) {
 export function BuildingSection({ dimensionPxs, leftPxs }) {
   return (
     <section
-      className={buildingStyles.building}
+      className={buildingStyles.section}
       style={{
         width: `${dimensionPxs.width}px`,
         height: `${dimensionPxs.height}px`,
