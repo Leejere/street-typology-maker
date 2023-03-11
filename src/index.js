@@ -60,7 +60,7 @@ const initScheme = [
   {
     name: "1st Elevated",
     heightFeet: 10,
-    leftOffsetFeet: 20,
+    leftOffsetFeet: 10,
     show: false,
     blocks: [
       {
@@ -75,6 +75,21 @@ const initScheme = [
         onCurb: false,
         widthFeet: 11,
         mark: "upAndTurnArrow",
+        pop: null,
+      },
+    ],
+  },
+  {
+    name: "2nd Elevated",
+    heightFeet: 10,
+    leftOffsetFeet: 15,
+    show: false,
+    blocks: [
+      {
+        type: "Drivelane",
+        onCurb: false,
+        widthFeet: 11,
+        mark: "downArrow",
         pop: null,
       },
     ],

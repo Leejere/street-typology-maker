@@ -21,7 +21,7 @@ export function BlockFront({ blockParams }) {
   );
 }
 
-export function LayerSection({ layerParams, topPxs }) {
+export function LayerSection({ layerParams }) {
   const blocks = layerParams.blocks.map((blockItem, index) => (
     <BlockFront key={index} blockParams={blockItem} />
   ));
