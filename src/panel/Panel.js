@@ -1,5 +1,10 @@
 import React, { useState, useContext } from "react";
+import "../styles/styles.scss";
 import panelStyles from "../styles/panel/Panel.module.css";
+import schemeSetterStyles from "../styles/panel/SchemeSetter.module.css";
+import Button from "react-bootstrap/Button";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import { Context } from "../index";
 import PropTypes from "prop-types";
 
@@ -27,12 +32,50 @@ function ProjectionSelect() {
   );
 }
 
-function BlockEdit() {}
+function AddRemoveHideButtons() {
+  const buttonContents = ["add_circle", "do_not_disturb_on", "visibility"];
+  const Buttons = buttonContents.map((content) => (
+    <OverlayTrigger
+      key={content}
+      placement={"top"}
+      overlay={<Tooltip id={`tooltip-${content}`}>Tooltip</Tooltip>}
+    >
+      <Button variant="light" className={schemeSetterStyles.actionButton}>
+        <span className="material-symbols-outlined">{content}</span>
+      </Button>
+    </OverlayTrigger>
+  ));
+  return <div className={schemeSetterStyles.buttonGroup}>{Buttons}</div>;
+}
 
-function LayerEdit() {}
+function BlockSetter() {}
 
-function SchemeEdit() {
+function LayerSetter({ layer }) {
+  return (
+    <div className={schemeSetterStyles.layer}>
+      <div className={schemeSetterStyles.layerName}>
+        {layer.name}
+        <AddRemoveHideButtons />
+      </div>
+    </div>
+  );
+}
+
+LayerSetter.propTypes = {
+  layer: PropTypes.object,
+};
+
+function SchemeSetter() {
   const context = useContext(Context);
+  const LayersSetters = context.scheme.map((layer, index) => {
+    return <LayerSetter key={index} layer={layer} />;
+  });
+  return (
+    <div className={panelStyles.itemGroup}>
+      <div className={panelStyles.subtitle}>Edit Typology</div>
+      {LayersSetters}
+    </div>
+  );
 }
 
 // Panel
@@ -70,13 +113,13 @@ function Panel({ shouldExpandOnLoad }) {
   };
 
   const ToggleButton = (
-    <button
-      className={`${panelStyles.button} ${panelStyles.toggle}`}
+    <Button
+      className={panelStyles.toggle}
       onClick={onPanelToggle}
+      variant="light"
     >
       <span className="material-symbols-outlined">{panelState.toggleIcon}</span>
-      <span>{panelState.toggleText}</span>
-    </button>
+    </Button>
   );
 
   return (
@@ -89,6 +132,7 @@ function Panel({ shouldExpandOnLoad }) {
         style={{ display: panelState.display }}
       >
         <ProjectionSelect />
+        <SchemeSetter />
       </section>
     </div>
   );

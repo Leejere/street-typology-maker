@@ -1,0 +1,26 @@
+.layer {
+  height: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.layerName {
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.actionButton * {
+  font-size: 0.9rem;
+}
+
+.actionButton {
+  padding: 0 0.5rem;
+  height: fit-content;
+  width: fit-content;
+}

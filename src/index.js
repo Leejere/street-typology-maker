@@ -22,7 +22,7 @@ const projectionReducer = (projection, newProjection) => {
 // In each layer, the `blocks` element is an array containing each block
 const initScheme = [
   {
-    layer: 1,
+    name: "At Grade",
     leftOffsetFeet: 0,
     heightFeet: 14,
     blocks: [
@@ -57,7 +57,7 @@ const initScheme = [
     ],
   },
   {
-    layer: 2,
+    name: "1st Elevated",
     heightFeet: 10,
     leftOffsetFeet: 20,
     blocks: [
@@ -76,12 +76,6 @@ const initScheme = [
         pop: null,
       },
     ],
-  },
-  {
-    layer: 3,
-    heightFeet: 10,
-    leftOffsetFeet: 0,
-    blocks: [],
   },
 ];
 const schemeReducer = (scheme, action) => {
