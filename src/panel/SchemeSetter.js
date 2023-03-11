@@ -9,11 +9,13 @@ import AddRemoveHideButtons from "./AddRemoveHideButtons";
 function BlockSetter() {}
 
 function LayerSetter({ layer }) {
+  // The "visible" button dependent on whether this layer is visible
+  const visible = layer.show ? "visibility" : "visibility_off";
   return (
     <div className={schemeSetterStyles.layer}>
       <div className={schemeSetterStyles.layerName}>
         {layer.name}
-        <AddRemoveHideButtons />
+        <AddRemoveHideButtons visible={visible} />
       </div>
     </div>
   );

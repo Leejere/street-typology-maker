@@ -4,9 +4,14 @@ import schemeSetterStyles from "../styles/panel/SchemeSetter.module.css";
 import Button from "react-bootstrap/Button";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import { Context } from "..";
+import PropTypes from "prop-types";
 
-function AddRemoveHideButtons() {
-  const buttonContents = ["add_circle", "do_not_disturb_on", "visibility"];
+function AddRemoveHideButtons({ visible }) {
+  const context = useContext(Context);
+  const buttonContents = ["add_circle", "do_not_disturb_on", visible];
+  const buttonTooltips = ["Add Level", "Remove Level", "Hide Level"];
+
   const Buttons = buttonContents.map((content) => (
     <OverlayTrigger
       key={content}
@@ -20,5 +25,9 @@ function AddRemoveHideButtons() {
   ));
   return <div className={schemeSetterStyles.buttonGroup}>{Buttons}</div>;
 }
+
+AddRemoveHideButtons.propTypes = {
+  visible: PropTypes.string,
+};
 
 export default AddRemoveHideButtons;
