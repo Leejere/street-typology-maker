@@ -15,10 +15,11 @@ export default function SectionArtboard() {
   const context = useContext(Context);
 
   // Street dimensions
-  const streetWidthFt = context.scheme[0].blocks.reduce(
-    (partialWidth, item) => partialWidth + item.widthFeet,
-    0
-  );
+  const streetWidthFt =
+    context.scheme[0].blocks.reduce(
+      (partialWidth, item) => partialWidth + item.widthFeet,
+      0
+    ) + context.scheme[0].leftOffsetFeet;
   const streetWidthPxs = streetWidthFt * WIDTH_PXS_PER_FT;
 
   // Building dimensions

@@ -31,18 +31,20 @@ export function LayerSection({ layerParams }) {
 
   const heightPxs = layerParams.heightFeet * HEIGHT_PXS_PER_FT;
 
+  const display = layerParams.show ? "flex" : "none";
+
   return (
     <section
       className={sectionStyles.layerContainer}
       style={{
         height: `${heightPxs}px`,
+        display: `${display}`,
       }}
     >
       <div
         className={sectionStyles.layer}
         style={{
           left: `${leftOffsetPxs}px`,
-          height: `${heightPxs}px`,
         }}
       >
         {blocks}

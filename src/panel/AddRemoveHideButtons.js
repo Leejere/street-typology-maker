@@ -7,19 +7,46 @@ import Tooltip from "react-bootstrap/Tooltip";
 import { Context } from "..";
 import PropTypes from "prop-types";
 
-function AddRemoveHideButtons({ visible }) {
+function AddRemoveHideButtons({ visible, level, layerTarget }) {
   const context = useContext(Context);
-  const buttonContents = ["add_circle", "do_not_disturb_on", visible];
-  const buttonTooltips = ["Add Level", "Remove Level", "Hide Level"];
+  const setHideIcon = visible ? "visibility" : "visibility_off";
+  const setHideAction = visible ? "hide" : "show";
+  const buttons = [
+    {
+      icon: "add_circle",
+      tooltip: "Add Level",
+      action: "add",
+    },
+    {
+      icon: "do_not_disturb_on",
+      tooltip: "Remove Level",
+      action: "remove",
+    },
+    {
+      icon: setHideIcon,
+      tooltip: "Hide Level",
+      action: setHideAction,
+    },
+  ];
 
-  const Buttons = buttonContents.map((content) => (
+  const Buttons = buttons.map((item, index) => (
     <OverlayTrigger
-      key={content}
+      key={index}
       placement={"top"}
-      overlay={<Tooltip id={`tooltip-${content}`}>Tooltip</Tooltip>}
+      overlay={<Tooltip id={`tooltip-${item.action}`}>{item.tooltip}</Tooltip>}
     >
-      <Button variant="light" className={schemeSetterStyles.actionButton}>
-        <span className="material-symbols-outlined">{content}</span>
+      <Button
+        variant="light"
+        className={schemeSetterStyles.actionButton}
+        onClick={() =>
+          context.setScheme({
+            level: level,
+            layerTarget: layerTarget,
+            action: item.action,
+          })
+        }
+      >
+        <span className="material-symbols-outlined">{item.icon}</span>
       </Button>
     </OverlayTrigger>
   ));
@@ -27,7 +54,9 @@ function AddRemoveHideButtons({ visible }) {
 }
 
 AddRemoveHideButtons.propTypes = {
-  visible: PropTypes.string,
+  visible: PropTypes.bool,
+  level: PropTypes.string, // either "layer" or "block"
+  layerTarget: PropTypes.number, // index of the target that the buttons control
 };
 
 export default AddRemoveHideButtons;

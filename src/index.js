@@ -83,7 +83,7 @@ const initScheme = [
     name: "2nd Elevated",
     heightFeet: 10,
     leftOffsetFeet: 15,
-    show: false,
+    show: true,
     blocks: [
       {
         type: "Drivelane",
@@ -96,7 +96,35 @@ const initScheme = [
   },
 ];
 const schemeReducer = (scheme, action) => {
-  return action;
+  const newScheme = [...scheme];
+
+  // Access the target: either a layer (object) or a block (object)
+  let target;
+  let parent;
+  if (action.level === "layer") {
+    target = newScheme[action.layerTarget];
+    parent = newScheme;
+  }
+
+  switch (action.action) {
+    case "hide":
+      target.show = false;
+      break;
+    case "show":
+      target.show = true;
+      break;
+    case "remove": {
+      const canRemove = parent.length > 1;
+      if (canRemove) {
+        parent.splice(parent.indexOf(target), 1);
+      }
+      break;
+    }
+    default:
+    //
+  }
+
+  return newScheme;
 };
 
 // Initial buildings ane reducer function to set buildings

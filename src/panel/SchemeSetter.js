@@ -8,14 +8,17 @@ import AddRemoveHideButtons from "./AddRemoveHideButtons";
 
 function BlockSetter() {}
 
-function LayerSetter({ layer }) {
+function LayerSetter({ layer, target }) {
   // The "visible" button dependent on whether this layer is visible
-  const visible = layer.show ? "visibility" : "visibility_off";
   return (
     <div className={schemeSetterStyles.layer}>
       <div className={schemeSetterStyles.layerName}>
         {layer.name}
-        <AddRemoveHideButtons visible={visible} />
+        <AddRemoveHideButtons
+          visible={layer.show}
+          level={"layer"}
+          layerTarget={target}
+        />
       </div>
     </div>
   );
@@ -23,12 +26,13 @@ function LayerSetter({ layer }) {
 
 LayerSetter.propTypes = {
   layer: PropTypes.object,
+  target: PropTypes.number,
 };
 
 function SchemeSetter() {
   const context = useContext(Context);
   const LayersSetters = context.scheme.map((layer, index) => {
-    return <LayerSetter key={index} layer={layer} />;
+    return <LayerSetter key={index} layer={layer} target={index} />;
   });
   return (
     <div className={panelStyles.itemGroup}>
