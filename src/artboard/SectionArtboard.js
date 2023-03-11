@@ -1,100 +1,88 @@
 import React, { useContext } from "react";
 import {
-  SectionLayer,
-  WIDTH_PIXELS_PER_FEET,
-  HEIGHT_PIXELS_PER_FEET,
-  SectionBuilding,
+  LayerSection,
+  WIDTH_PXS_PER_FT,
+  HEIGHT_PXS_PER_FT,
+  BuildingSection,
 } from "./.components";
 import { BUILDING_DICT } from "./Artboard";
 import { Context } from "..";
-import sectionStyles from "./SectionArboard.module.css";
+import sectionStyles from "./Section.module.css";
 
-const SECTION_ARTBOARD_HEIGHT_PIXELS = 500;
+const BOARD_HGT_PXS = 500;
 
 /**
  *
- * @param {Object} scheme passed down in `props`; current scheme
+ * @param {Object} scheme current scheme
  * @returns {Array} offset height for layer 1 to 3; used in CSS positioning `top: Npx`
  */
-function getLayerOffsetHeightsPixels(scheme) {
+function getLayerOffsetTopPxs(scheme) {
   return scheme
-    .map((layer) => layer.heightFeet * HEIGHT_PIXELS_PER_FEET)
+    .map((layer) => layer.heightFeet * HEIGHT_PXS_PER_FT)
     .map(
+      // Cumulative height
       (
         (sum) => (value) =>
           (sum += value)
       )(0)
     )
-    .map(
-      (heightFromBottom) => SECTION_ARTBOARD_HEIGHT_PIXELS - heightFromBottom
-    );
+    .map((heightFromBottom) => BOARD_HGT_PXS - heightFromBottom);
 }
 
 export default function SectionArtboard() {
   const context = useContext(Context);
-  const totalRoadWidthFeet = context.scheme[0].blocks.reduce(
+
+  // Street dimensions
+  const streetWidthFt = context.scheme[0].blocks.reduce(
     (partialWidth, item) => partialWidth + item.widthFeet,
     0
   );
+  const streetWidthPxs = streetWidthFt * WIDTH_PXS_PER_FT;
 
-  const totalRoadWidthPixels = totalRoadWidthFeet * WIDTH_PIXELS_PER_FEET;
+  // Building dimensions
+  const bldgsDimensionsPxs = context.buildings.map((buildingId) => {
+    const thisBuilding = BUILDING_DICT[buildingId];
+    const height = thisBuilding.heightFeet * HEIGHT_PXS_PER_FT;
+    return {
+      width: thisBuilding.widthFeet * WIDTH_PXS_PER_FT,
+      height: height,
+      offsetTop: BOARD_HGT_PXS - height,
+    };
+  });
 
-  const leftBuildingWidthPixels =
-    BUILDING_DICT[context.buildings[0]].widthFeet * WIDTH_PIXELS_PER_FEET;
+  // Total width
+  const totalWidthPxs =
+    streetWidthPxs + bldgsDimensionsPxs[0].width + bldgsDimensionsPxs[1].width;
 
-  const rightBuildingWidthPixels =
-    BUILDING_DICT[context.buildings[1]].widthFeet * WIDTH_PIXELS_PER_FEET;
+  // Offset top
+  const layerOffsetTopPxs = getLayerOffsetTopPxs(context.scheme);
 
-  const leftBuildingHeightPixels =
-    BUILDING_DICT[context.buildings[0]].heightFeet * HEIGHT_PIXELS_PER_FEET;
-
-  const rightBuildingHeightPixels =
-    BUILDING_DICT[context.buildings[1]].heightFeet * HEIGHT_PIXELS_PER_FEET;
-
-  const leftBuildingOffsetTop =
-    SECTION_ARTBOARD_HEIGHT_PIXELS -
-    BUILDING_DICT[context.buildings[0]].heightFeet * HEIGHT_PIXELS_PER_FEET;
-
-  const rightBuildingOffsetTop =
-    SECTION_ARTBOARD_HEIGHT_PIXELS -
-    BUILDING_DICT[context.buildings[1]].heightFeet * HEIGHT_PIXELS_PER_FEET;
-
-  // Total width = road plus buildings
-  const totalWidthPixels =
-    totalRoadWidthPixels + leftBuildingWidthPixels + rightBuildingWidthPixels;
-
-  const layerOffsetHeights = getLayerOffsetHeightsPixels(context.scheme);
-
-  const sectionLayers = context.scheme.map((layerItem, index) => (
-    <SectionLayer
+  // Street section
+  const StreetSection = context.scheme.map((layerItem, index) => (
+    // each layer and index of layer
+    <LayerSection
       key={index}
       layerParams={layerItem}
-      offsetTopPixels={layerOffsetHeights[index]}
-      offsetLeftPixels={leftBuildingWidthPixels}
+      topPxs={layerOffsetTopPxs[index]}
+      leftPxs={bldgsDimensionsPxs[0].width}
     />
   ));
+
   return (
     <section
       className={sectionStyles.section}
       style={{
-        height: `${SECTION_ARTBOARD_HEIGHT_PIXELS}px`,
-        width: `${totalWidthPixels}px`,
+        height: `${BOARD_HGT_PXS}px`,
+        width: `${totalWidthPxs}px`,
       }}
     >
-      <SectionBuilding
-        widthPixels={leftBuildingWidthPixels}
-        heightPixels={leftBuildingHeightPixels}
-        offsetTopPixels={leftBuildingOffsetTop}
-        offsetLeftPixels={0}
-      />
+      <BuildingSection dimensionPxs={bldgsDimensionsPxs[0]} leftPxs={0} />
 
-      {sectionLayers}
+      {StreetSection}
 
-      <SectionBuilding
-        widthPixels={rightBuildingWidthPixels}
-        heightPixels={rightBuildingHeightPixels}
-        offsetTopPixels={rightBuildingOffsetTop}
-        offsetLeftPixels={leftBuildingWidthPixels + totalRoadWidthPixels}
+      <BuildingSection
+        dimensionPxs={bldgsDimensionsPxs[1]}
+        leftPxs={bldgsDimensionsPxs[0].width + streetWidthPxs}
       />
     </section>
   );

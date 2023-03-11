@@ -1,0 +1,13 @@
+.section {
+  width: fit-content;
+  position: relative;
+  display: flex;
+}
+
+.layer {
+  position: absolute;
+  background-color: aquamarine;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+}

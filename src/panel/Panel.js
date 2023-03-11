@@ -11,6 +11,7 @@ function ReprojectButtons() {
   const buttonsEls = projections.map((projection) => {
     return (
       <button
+        className={`${panelStyles.button}`}
         key={projection}
         onClick={() => context.setProjection(projection)}
       >
@@ -20,10 +21,6 @@ function ReprojectButtons() {
   });
   return <>{buttonsEls}</>;
 }
-
-ReprojectButtons.propTypes = {
-  handleProjChange: PropTypes.func,
-};
 
 // Panel
 function Panel({ shouldExpandOnLoad }) {
@@ -62,7 +59,10 @@ function Panel({ shouldExpandOnLoad }) {
   return (
     <div className={panelStyles.package}>
       {/* Toggle button */}
-      <button className={panelStyles.toggle} onClick={onPanelToggle}>
+      <button
+        className={`${panelStyles.button} ${panelStyles.toggle}`}
+        onClick={onPanelToggle}
+      >
         <span className="material-symbols-outlined">
           {panelState.toggleIcon}
         </span>

@@ -1,19 +1,20 @@
 import React from "react";
-import PropTypes from "prop-types";
-import "./.components.css";
+import sectionStyles from "./Section.module.css";
+import blockStyles from "./Block.module.css";
+import buildingStyles from "./Building.module.css";
 
-export const WIDTH_PIXELS_PER_FEET = 10;
+export const WIDTH_PXS_PER_FT = 10;
 const HGT_WIDTH_DISTORT = 1;
-export const HEIGHT_PIXELS_PER_FEET = WIDTH_PIXELS_PER_FEET * HGT_WIDTH_DISTORT;
-export const BLOCK_HEIGHT_PIXELS = 100;
+export const HEIGHT_PXS_PER_FT = WIDTH_PXS_PER_FT * HGT_WIDTH_DISTORT;
+export const BLOCK_HEIGHT_PXS = 100;
 
 export function BlockFront({ blockParams }) {
-  const widthPixels = blockParams.widthFeet * WIDTH_PIXELS_PER_FEET;
+  const widthPixels = blockParams.widthFeet * WIDTH_PXS_PER_FT;
   return (
     <div
-      className="block-front"
+      className={blockStyles.front}
       style={{
-        height: `${BLOCK_HEIGHT_PIXELS}px`,
+        height: `${BLOCK_HEIGHT_PXS}px`,
         width: `${widthPixels}px`,
       }}
     >
@@ -22,31 +23,23 @@ export function BlockFront({ blockParams }) {
   );
 }
 
-BlockFront.propTypes = {
-  blockParams: PropTypes.object.isRequired,
-};
-
-export function SectionLayer({
-  layerParams,
-  offsetTopPixels,
-  offsetLeftPixels,
-}) {
+export function LayerSection({ layerParams, topPxs, leftPxs }) {
   const blocks = layerParams.blocks.map((blockItem, index) => (
     <BlockFront key={index} blockParams={blockItem} />
   ));
 
-  const leftOffsetPixels =
-    layerParams.leftOffsetFeet * WIDTH_PIXELS_PER_FEET + offsetLeftPixels;
+  // Left offset: default offset off buildings plus additional offset
+  const leftOffsetPxs = layerParams.leftOffsetFeet * WIDTH_PXS_PER_FT + leftPxs;
 
-  const heightPixels = layerParams.heightFeet * HEIGHT_PIXELS_PER_FEET;
+  const heightPxs = layerParams.heightFeet * HEIGHT_PXS_PER_FT;
 
   return (
     <section
-      className="section-layer"
+      className={sectionStyles.layer}
       style={{
-        top: `${offsetTopPixels}px`,
-        left: `${leftOffsetPixels}px`,
-        height: `${heightPixels}px`,
+        top: `${topPxs}px`,
+        left: `${leftOffsetPxs}px`,
+        height: `${heightPxs}px`,
       }}
     >
       {blocks}
@@ -54,36 +47,16 @@ export function SectionLayer({
   );
 }
 
-SectionLayer.propTypes = {
-  layerParams: PropTypes.object.isRequired,
-  offsetTopPixels: PropTypes.number.isRequired,
-  offsetLeftPixels: PropTypes.number.isRequired,
-};
-
-export function SectionBuilding({
-  widthPixels,
-  heightPixels,
-  offsetTopPixels,
-  offsetLeftPixels,
-}) {
-  // const widthPixels = BUILDING_DICT[index].widthFeet * WIDTH_PIXELS_PER_FEET;
-  // const heightPixels = BUILDING_DICT[index].heightFeet * HEIGHT_PIXELS_PER_FEET;
+export function BuildingSection({ dimensionPxs, leftPxs }) {
   return (
     <section
-      className="building"
+      className={buildingStyles.building}
       style={{
-        width: `${widthPixels}px`,
-        height: `${heightPixels}px`,
-        top: `${offsetTopPixels}px`,
-        left: `${offsetLeftPixels}px`,
+        width: `${dimensionPxs.width}px`,
+        height: `${dimensionPxs.height}px`,
+        top: `${dimensionPxs.offsetTop}px`,
+        left: `${leftPxs}px`,
       }}
     ></section>
   );
 }
-
-SectionBuilding.propTypes = {
-  widthPixels: PropTypes.number.isRequired,
-  heightPixels: PropTypes.number.isRequired,
-  offsetTopPixels: PropTypes.number.isRequired,
-  offsetLeftPixels: PropTypes.number.isRequired,
-};
