@@ -1,4 +1,4 @@
-import navStyles from "./Nav.module.css";
+import navStyles from "../styles/Nav.module.css";
 import React from "react";
 
 function Nav() {

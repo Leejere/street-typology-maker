@@ -1,5 +1,5 @@
 import React from "react";
-import artboardStyles from "./Artboard.module.css";
+import artboardStyles from "../styles/artboard/Artboard.module.css";
 import PropTypes from "prop-types";
 import SectionArtboard from "./SectionArtboard";
 import PlanArtboard from "./PlanArtboard";

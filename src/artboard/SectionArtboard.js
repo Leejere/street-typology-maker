@@ -7,7 +7,7 @@ import {
 } from "./.components";
 import { BUILDING_DICT } from "./Artboard";
 import { Context } from "..";
-import sectionStyles from "./Section.module.css";
+import sectionStyles from "../styles/artboard/Section.module.css";
 
 const BOARD_HGT_PXS = 500;
 

@@ -1,7 +1,7 @@
 import React from "react";
-import sectionStyles from "./Section.module.css";
-import blockStyles from "./Block.module.css";
-import buildingStyles from "./Building.module.css";
+import sectionStyles from "../styles/artboard/Section.module.css";
+import blockStyles from "../styles/components/Block.module.css";
+import buildingStyles from "../styles/components/Building.module.css";
 
 export const WIDTH_PXS_PER_FT = 10;
 const HGT_WIDTH_DISTORT = 1;

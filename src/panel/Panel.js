@@ -1,14 +1,14 @@
 import React, { useState, useContext } from "react";
-import panelStyles from "./Panel.module.css";
+import panelStyles from "../styles/panel/Panel.module.css";
 import { Context } from "../index";
 import PropTypes from "prop-types";
 
 // Set of buttons to change current projection
-function ReprojectButtons() {
+function ProjectionSelect() {
   const context = useContext(Context);
   const projections = ["Section", "Plan", "Axon"];
 
-  const buttonsEls = projections.map((projection) => {
+  const ReprojectButtons = projections.map((projection) => {
     return (
       <button
         className={`${panelStyles.button}`}
@@ -19,7 +19,20 @@ function ReprojectButtons() {
       </button>
     );
   });
-  return <>{buttonsEls}</>;
+  return (
+    <div className={panelStyles.itemGroup}>
+      <div className={panelStyles.subtitle}>Select Projection</div>
+      <div className={panelStyles.buttonGroup}>{ReprojectButtons}</div>
+    </div>
+  );
+}
+
+function BlockEdit() {}
+
+function LayerEdit() {}
+
+function SchemeEdit() {
+  const context = useContext(Context);
 }
 
 // Panel
@@ -56,25 +69,26 @@ function Panel({ shouldExpandOnLoad }) {
     }
   };
 
+  const ToggleButton = (
+    <button
+      className={`${panelStyles.button} ${panelStyles.toggle}`}
+      onClick={onPanelToggle}
+    >
+      <span className="material-symbols-outlined">{panelState.toggleIcon}</span>
+      <span>{panelState.toggleText}</span>
+    </button>
+  );
+
   return (
     <div className={panelStyles.package}>
-      {/* Toggle button */}
-      <button
-        className={`${panelStyles.button} ${panelStyles.toggle}`}
-        onClick={onPanelToggle}
-      >
-        <span className="material-symbols-outlined">
-          {panelState.toggleIcon}
-        </span>
-        <span>{panelState.toggleText}</span>
-      </button>
+      {ToggleButton}
 
       {/* Panel section */}
       <section
         className={panelStyles.main}
         style={{ display: panelState.display }}
       >
-        <ReprojectButtons />
+        <ProjectionSelect />
       </section>
     </div>
   );
