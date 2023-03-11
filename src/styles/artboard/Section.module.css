@@ -4,10 +4,20 @@
   display: flex;
 }
 
-.layer {
+.street {
   position: absolute;
+  width: 10em;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.layerContainer {
   background-color: aquamarine;
   display: flex;
-  justify-content: flex-start;
+}
+
+.layer {
+  position: absolute;
+  display: flex;
   align-items: flex-end;
 }

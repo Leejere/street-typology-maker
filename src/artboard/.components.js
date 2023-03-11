@@ -21,26 +21,32 @@ export function BlockFront({ blockParams }) {
   );
 }
 
-export function LayerSection({ layerParams, topPxs, leftPxs }) {
+export function LayerSection({ layerParams, topPxs }) {
   const blocks = layerParams.blocks.map((blockItem, index) => (
     <BlockFront key={index} blockParams={blockItem} />
   ));
 
   // Left offset: default offset off buildings plus additional offset
-  const leftOffsetPxs = layerParams.leftOffsetFeet * WIDTH_PXS_PER_FT + leftPxs;
+  const leftOffsetPxs = layerParams.leftOffsetFeet * WIDTH_PXS_PER_FT;
 
   const heightPxs = layerParams.heightFeet * HEIGHT_PXS_PER_FT;
 
   return (
     <section
-      className={sectionStyles.layer}
+      className={sectionStyles.layerContainer}
       style={{
-        top: `${topPxs}px`,
-        left: `${leftOffsetPxs}px`,
         height: `${heightPxs}px`,
       }}
     >
-      {blocks}
+      <div
+        className={sectionStyles.layer}
+        style={{
+          left: `${leftOffsetPxs}px`,
+          height: `${heightPxs}px`,
+        }}
+      >
+        {blocks}
+      </div>
     </section>
   );
 }

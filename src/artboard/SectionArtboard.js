@@ -58,7 +58,7 @@ export default function SectionArtboard() {
   const layerOffsetTopPxs = getLayerOffsetTopPxs(context.scheme);
 
   // Street section
-  const StreetSection = context.scheme.map((layerItem, index) => (
+  const StreetLayers = context.scheme.map((layerItem, index) => (
     // each layer and index of layer
     <LayerSection
       key={index}
@@ -67,6 +67,18 @@ export default function SectionArtboard() {
       leftPxs={bldgsDimensionsPxs[0].width}
     />
   ));
+  const Street = (
+    <div
+      className={sectionStyles.street}
+      style={{
+        left: `${bldgsDimensionsPxs[0].width}px`,
+        height: `${BOARD_HGT_PXS}px`,
+        width: `${streetWidthPxs}px`,
+      }}
+    >
+      {StreetLayers}
+    </div>
+  );
 
   return (
     <section
@@ -78,7 +90,7 @@ export default function SectionArtboard() {
     >
       <BuildingSection dimensionPxs={bldgsDimensionsPxs[0]} leftPxs={0} />
 
-      {StreetSection}
+      {Street}
 
       <BuildingSection
         dimensionPxs={bldgsDimensionsPxs[1]}
