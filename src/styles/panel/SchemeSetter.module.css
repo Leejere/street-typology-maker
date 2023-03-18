@@ -1,5 +1,4 @@
 .layer {
-  height: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,5 +30,9 @@
 }
 
 .numberSetter {
-  width: 9rem;
+  width: 7rem;
+}
+
+.numberSetter > .form-floating > label {
+  padding: 0;
 }

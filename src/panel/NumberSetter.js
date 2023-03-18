@@ -5,27 +5,42 @@ import Form from "react-bootstrap/Form";
 import schemeSetterStyles from "../styles/panel/SchemeSetter.module.css";
 import PropTypes from "prop-types";
 
-function NumberSetter({ initValue, onChange }) {
+const formatNumber = (number) => {
+  return number + "'";
+};
+
+const deformatNumber = (string) => {
+  const number = string.replace(/\D/g, "") || 0;
+  return number;
+};
+
+const positionCursor = (cursorPosition, target) => {
+  target.focus();
+  target.setSelectionRange(cursorPosition, cursorPosition);
+};
+
+function NumberSetter({ initValue, placeholder, onChange }) {
   const [number, setValue] = useState(initValue);
   return (
     <InputGroup className={schemeSetterStyles.numberSetter} size="sm">
-      <InputGroup.Text>Height</InputGroup.Text>
+      <InputGroup.Text>{placeholder}</InputGroup.Text>
       <Form.Control
-        value={number}
-        type="number"
+        value={formatNumber(number)}
         onChange={(e) => {
-          const newNumber = Number(e.target.value);
+          const newNumber = deformatNumber(e.target.value);
           setValue(newNumber);
+          const cursorPosition = String(newNumber).length;
           onChange(newNumber);
+          positionCursor(cursorPosition, e.target);
         }}
       />
-      <InputGroup.Text>&apos;</InputGroup.Text>
     </InputGroup>
   );
 }
 
 NumberSetter.propTypes = {
   initValue: PropTypes.number,
+  placeholder: PropTypes.string,
   onChange: PropTypes.func,
 };
 
