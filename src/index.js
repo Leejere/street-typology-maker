@@ -106,9 +106,14 @@ const schemeReducer = (scheme, action) => {
       }
       break;
     }
-    case "add":
-      parent.splice(parent.indexOf(target), 0, { ...target });
+    case "add": {
+      const added = { ...target };
+      if (action.level === "layer") {
+        added.name = `Copied ${added.name}`;
+      }
+      parent.splice(parent.indexOf(target) + 1, 0, added);
       break;
+    }
     case "rename":
       target.name = action.name;
       break;
