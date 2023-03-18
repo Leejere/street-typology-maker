@@ -87,7 +87,11 @@ const schemeReducer = (scheme, action) => {
   // Access the target: either a layer (object) or a block (object)
   let target;
   let parent;
-  if (action.level === "layer" || action.action === "rename") {
+  if (
+    action.level === "layer" ||
+    action.action === "rename" ||
+    action.action === "setHeight"
+  ) {
     target = newScheme[action.layerTarget];
     parent = newScheme;
   }
@@ -116,6 +120,9 @@ const schemeReducer = (scheme, action) => {
     }
     case "rename":
       target.name = action.name;
+      break;
+    case "setHeight":
+      target.heightFeet = action.newHeight;
       break;
     default:
       break;
