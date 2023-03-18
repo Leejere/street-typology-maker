@@ -1,9 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import "../styles/styles.scss";
 import schemeSetterStyles from "../styles/panel/SchemeSetter.module.css";
 import Button from "react-bootstrap/Button";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
 import { Context } from "..";
 import PropTypes from "prop-types";
 
@@ -11,6 +9,7 @@ function AddRemoveHideButtons({ visible, level, layerTarget }) {
   const context = useContext(Context);
   const setHideIcon = visible ? "visibility" : "visibility_off";
   const setHideAction = visible ? "hide" : "show";
+  const setHideTooltip = visible ? "Hide Level" : "Show Level";
   const buttons = [
     {
       icon: "add_circle",
@@ -24,31 +23,26 @@ function AddRemoveHideButtons({ visible, level, layerTarget }) {
     },
     {
       icon: setHideIcon,
-      tooltip: "Hide Level",
+      tooltip: setHideTooltip,
       action: setHideAction,
     },
   ];
 
   const Buttons = buttons.map((item, index) => (
-    <OverlayTrigger
+    <Button
       key={index}
-      placement={"top"}
-      overlay={<Tooltip id={`tooltip-${item.action}`}>{item.tooltip}</Tooltip>}
+      variant="primary"
+      className={schemeSetterStyles.actionButton}
+      onClick={() =>
+        context.setScheme({
+          level: level,
+          layerTarget: layerTarget,
+          action: item.action,
+        })
+      }
     >
-      <Button
-        variant="light"
-        className={schemeSetterStyles.actionButton}
-        onClick={() =>
-          context.setScheme({
-            level: level,
-            layerTarget: layerTarget,
-            action: item.action,
-          })
-        }
-      >
-        <span className="material-symbols-outlined">{item.icon}</span>
-      </Button>
-    </OverlayTrigger>
+      <span className="material-symbols-outlined">{item.icon}</span>
+    </Button>
   ));
   return <div className={schemeSetterStyles.buttonGroup}>{Buttons}</div>;
 }

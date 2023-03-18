@@ -22,7 +22,7 @@ const projectionReducer = (projection, newProjection) => {
 // In each layer, the `blocks` element is an array containing each block
 const initScheme = [
   {
-    name: "At Grade",
+    name: "At-grade",
     leftOffsetFeet: 0,
     heightFeet: 14,
     show: true,
@@ -58,10 +58,10 @@ const initScheme = [
     ],
   },
   {
-    name: "1st Elevated",
+    name: "Elevated",
     heightFeet: 10,
     leftOffsetFeet: 10,
-    show: false,
+    show: true,
     blocks: [
       {
         type: "Drivelane",
@@ -79,29 +79,15 @@ const initScheme = [
       },
     ],
   },
-  {
-    name: "2nd Elevated",
-    heightFeet: 10,
-    leftOffsetFeet: 15,
-    show: true,
-    blocks: [
-      {
-        type: "Drivelane",
-        onCurb: false,
-        widthFeet: 11,
-        mark: "downArrow",
-        pop: null,
-      },
-    ],
-  },
 ];
+
 const schemeReducer = (scheme, action) => {
   const newScheme = [...scheme];
 
   // Access the target: either a layer (object) or a block (object)
   let target;
   let parent;
-  if (action.level === "layer") {
+  if (action.level === "layer" || action.action === "rename") {
     target = newScheme[action.layerTarget];
     parent = newScheme;
   }
@@ -122,6 +108,9 @@ const schemeReducer = (scheme, action) => {
     }
     case "add":
       parent.splice(parent.indexOf(target), 0, { ...target });
+      break;
+    case "rename":
+      target.name = action.name;
       break;
     default:
       break;
