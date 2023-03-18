@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, memo } from "react";
 import {
   LayerSection,
   WIDTH_PXS_PER_FT,
@@ -11,7 +11,7 @@ import sectionStyles from "../styles/artboard/Section.module.css";
 
 const BOARD_HGT_PXS = 500;
 
-export default function SectionArtboard() {
+function SectionArtboard() {
   const context = useContext(Context);
 
   // Street dimensions
@@ -74,3 +74,5 @@ export default function SectionArtboard() {
     </section>
   );
 }
+
+export default memo(SectionArtboard);

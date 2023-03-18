@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import artboardStyles from "../styles/artboard/Artboard.module.css";
 import PropTypes from "prop-types";
 import SectionArtboard from "./SectionArtboard";
@@ -37,4 +37,4 @@ Artboard.propTypes = {
   projection: PropTypes.string.isRequired,
 };
 
-export default Artboard;
+export default memo(Artboard);

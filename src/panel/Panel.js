@@ -1,11 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState, memo } from "react";
 import "../styles/styles.scss";
 import panelStyles from "../styles/panel/Panel.module.css";
-import Button from "react-bootstrap/Button";
-import PropTypes from "prop-types";
+import PanelToggle from "./PanelToggle";
 import ProjectionSelect from "./ProjectionSelect";
-
 import SchemeSetter from "./SchemeSetter";
+import PropTypes from "prop-types";
 
 // Panel
 function Panel({ shouldExpandOnLoad }) {
@@ -19,24 +18,15 @@ function Panel({ shouldExpandOnLoad }) {
     setPanelState(!panelExpanded);
   };
   const toggleIcon = panelExpanded ? "expand_less" : "expand_more";
-  // Button determining whether the panel should be shown
-  const ToggleButton = (
-    <Button
-      className={panelStyles.toggle}
-      onClick={onPanelToggle}
-      variant="light"
-    >
-      <span className="material-symbols-outlined">{toggleIcon}</span>
-    </Button>
-  );
 
   const panelShouldDisplay = panelExpanded ? "flex" : "none";
 
   return (
     <div className={panelStyles.package}>
-      {ToggleButton}
-
-      {/* Panel section */}
+      <PanelToggle
+        onPanelToggle={() => onPanelToggle()}
+        toggleIcon={toggleIcon}
+      />
       <section
         className={panelStyles.main}
         style={{ display: panelShouldDisplay }}
@@ -52,4 +42,4 @@ Panel.propTypes = {
   shouldExpandOnLoad: PropTypes.bool,
 };
 
-export default Panel;
+export default memo(Panel);

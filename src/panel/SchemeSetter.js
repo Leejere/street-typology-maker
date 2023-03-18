@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, memo } from "react";
 import "../styles/styles.scss";
 import panelStyles from "../styles/panel/Panel.module.css";
 import schemeSetterStyles from "../styles/panel/SchemeSetter.module.css";
@@ -42,4 +42,4 @@ function SchemeSetter() {
   );
 }
 
-export default SchemeSetter;
+export default memo(SchemeSetter);
