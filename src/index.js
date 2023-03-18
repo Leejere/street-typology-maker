@@ -120,8 +120,11 @@ const schemeReducer = (scheme, action) => {
       }
       break;
     }
+    case "add":
+      parent.splice(parent.indexOf(target), 0, { ...target });
+      break;
     default:
-    //
+      break;
   }
 
   return newScheme;

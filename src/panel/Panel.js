@@ -10,46 +10,27 @@ import SchemeSetter from "./SchemeSetter";
 // Panel
 function Panel({ shouldExpandOnLoad }) {
   // Initial state
-  const initDisplay = shouldExpandOnLoad ? "flex" : "none";
-  const initToggleIcon = shouldExpandOnLoad ? "expand_less" : "expand_more";
-  const initToggleText = shouldExpandOnLoad ? "Collapse" : "Expand";
-  const initState = {
-    expanded: shouldExpandOnLoad,
-    display: initDisplay,
-    toggleIcon: initToggleIcon,
-    toggleText: initToggleText,
-  };
+  const panelInitExpanded = shouldExpandOnLoad;
 
   // Set panel state
-  const [panelState, setPanelState] = useState(initState);
+  const [panelExpanded, setPanelState] = useState(panelInitExpanded);
 
   const onPanelToggle = () => {
-    if (panelState.expanded) {
-      setPanelState({
-        expanded: false,
-        display: "none",
-        toggleIcon: "expand_more",
-        toggleText: "Expand",
-      });
-    } else {
-      setPanelState({
-        expanded: true,
-        display: "flex",
-        toggleIcon: "expand_less",
-        toggleText: "Collapse",
-      });
-    }
+    setPanelState(!panelExpanded);
   };
-
+  const toggleIcon = panelExpanded ? "expand_less" : "expand_more";
+  // Button determining whether the panel should be shown
   const ToggleButton = (
     <Button
       className={panelStyles.toggle}
       onClick={onPanelToggle}
       variant="light"
     >
-      <span className="material-symbols-outlined">{panelState.toggleIcon}</span>
+      <span className="material-symbols-outlined">{toggleIcon}</span>
     </Button>
   );
+
+  const panelShouldDisplay = panelExpanded ? "flex" : "none";
 
   return (
     <div className={panelStyles.package}>
@@ -58,7 +39,7 @@ function Panel({ shouldExpandOnLoad }) {
       {/* Panel section */}
       <section
         className={panelStyles.main}
-        style={{ display: panelState.display }}
+        style={{ display: panelShouldDisplay }}
       >
         <ProjectionSelect />
         <SchemeSetter />
