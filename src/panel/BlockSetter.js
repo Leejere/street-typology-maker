@@ -1,23 +1,43 @@
 import React, { useContext, memo } from "react";
-import "../styles/styles.scss";
 import schemeSetterStyles from "../styles/panel/SchemeSetter.module.css";
 import PropTypes from "prop-types";
 import AddRemoveHideButtons from "./AddRemoveHideButtons";
-import LayerRenamer from "./LayerRenamer";
 import NumberSetter from "./NumberSetter";
 import { Context } from "..";
-import Form from "react-bootstrap/Form";
+import {
+  faCar,
+  faPersonWalking,
+  faTree,
+} from "@fortawesome/free-solid-svg-icons";
+import "../styles/styles.scss";
+import DropdownSelect from "./DropdownSelect";
 
-function BlockSetter({ block, blockIndex }) {
+const options = {
+  drivelane: { label: "Drivelane", icon: faCar },
+  sidewalk: { label: "Sidewalk", icon: faPersonWalking },
+  median: { label: "Median", icon: faTree },
+};
+
+function BlockSetter({ block, blockIndex, layerIndex }) {
   // The "visible" button dependent on whether this layer is visible
   const context = useContext(Context);
   return (
     <div className={schemeSetterStyles.block}>
-      <Form.Select size="sm">
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-      </Form.Select>
+      <DropdownSelect
+        variant={"primary"}
+        initValue={block.type}
+        options={options}
+        onSelect={(type) =>
+          context.setScheme({
+            action: "setType",
+            layerTarget: layerIndex,
+            blockTarget: blockIndex,
+            type: type,
+          })
+        }
+      />
       <NumberSetter
+        isSmall={true}
         initValue={0}
         placeholder={"width"}
         onChange={(newWidth) => {
@@ -31,6 +51,7 @@ function BlockSetter({ block, blockIndex }) {
 BlockSetter.propTypes = {
   block: PropTypes.object,
   blockIndex: PropTypes.number,
+  layerIndex: PropTypes.number, // Index of the layer the block is in
 };
 
 export default memo(BlockSetter);

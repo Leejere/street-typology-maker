@@ -28,28 +28,28 @@ const initScheme = [
     show: true,
     blocks: [
       {
-        type: "Sidewalk",
+        type: "sidewalk",
         onCurb: true,
         widthFeet: 12,
         mark: null,
         pop: null,
       },
       {
-        type: "Drivelane",
+        type: "drivelane",
         onCurb: false,
         widthFeet: 11,
         mark: "downArrow",
         pop: null,
       },
       {
-        type: "Drivelane",
+        type: "drivelane",
         onCurb: false,
         widthFeet: 11,
         mark: "upAndTurnArrow",
         pop: null,
       },
       {
-        type: "Sidewalk",
+        type: "sidewalk",
         onCurb: true,
         widthFeet: 12,
         mark: null,
@@ -64,14 +64,14 @@ const initScheme = [
     show: true,
     blocks: [
       {
-        type: "Drivelane",
+        type: "drivelane",
         onCurb: false,
         widthFeet: 11,
         mark: "downArrow",
         pop: null,
       },
       {
-        type: "Drivelane",
+        type: "drivelane",
         onCurb: false,
         widthFeet: 11,
         mark: "upAndTurnArrow",
@@ -92,8 +92,13 @@ const schemeReducer = (scheme, action) => {
     action.action === "rename" ||
     action.action === "setHeight"
   ) {
-    target = newScheme[action.layerTarget];
+    // Targing a layer
     parent = newScheme;
+    target = parent[action.layerTarget];
+  } else {
+    // Targing a block
+    parent = newScheme[action.layerTarget];
+    target = parent.blocks[action.blockTarget];
   }
 
   switch (action.action) {
@@ -123,6 +128,9 @@ const schemeReducer = (scheme, action) => {
       break;
     case "setHeight":
       target.heightFeet = action.newHeight;
+      break;
+    case "setType":
+      target.type = action.type;
       break;
     default:
       break;

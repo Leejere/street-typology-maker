@@ -19,10 +19,13 @@ const positionCursor = (cursorPosition, target) => {
   target.setSelectionRange(cursorPosition, cursorPosition);
 };
 
-function NumberSetter({ initValue, placeholder, onChange }) {
+function NumberSetter({ initValue, placeholder, onChange, isSmall }) {
   const [number, setValue] = useState(initValue);
+  const className = isSmall
+    ? schemeSetterStyles.numberSetterSmall
+    : schemeSetterStyles.numberSetter;
   return (
-    <InputGroup className={schemeSetterStyles.numberSetter} size="sm">
+    <InputGroup className={className} size="sm">
       <InputGroup.Text>{placeholder}</InputGroup.Text>
       <Form.Control
         value={formatNumber(number)}
@@ -42,6 +45,7 @@ NumberSetter.propTypes = {
   initValue: PropTypes.number,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
+  isSmall: PropTypes.bool,
 };
 
 export default memo(NumberSetter);

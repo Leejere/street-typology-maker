@@ -8,6 +8,11 @@ const HGT_WIDTH_DISTORT = 1;
 export const HEIGHT_PXS_PER_FT = WIDTH_PXS_PER_FT * HGT_WIDTH_DISTORT;
 export const BLOCK_HEIGHT_PXS = 100;
 
+const testColorDict = {
+  sidewalk: "#ddd",
+  drivelane: "#aaa",
+};
+
 export function BlockFront({ blockParams }) {
   const widthPxs = blockParams.widthFeet * WIDTH_PXS_PER_FT;
   return (
@@ -16,6 +21,7 @@ export function BlockFront({ blockParams }) {
       style={{
         height: `${BLOCK_HEIGHT_PXS}px`,
         width: `${widthPxs}px`,
+        backgroundColor: testColorDict[blockParams.type],
       }}
     ></div>
   );

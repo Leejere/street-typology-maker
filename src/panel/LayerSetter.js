@@ -34,7 +34,14 @@ function LayerSetter({ layer, layerIndex }) {
     </div>
   );
   const blockSetters = blocks.map((block, index) => {
-    return <BlockSetter key={index} block={block} blockIndex={index} />;
+    return (
+      <BlockSetter
+        key={index}
+        block={block}
+        blockIndex={index}
+        layerIndex={layerIndex}
+      />
+    );
   });
   return (
     <>
