@@ -21,29 +21,51 @@ const options = {
 function BlockSetter({ block, blockIndex, layerIndex }) {
   // The "visible" button dependent on whether this layer is visible
   const context = useContext(Context);
+  const typeSetter = (
+    <DropdownSelect
+      variant={"primary"}
+      initValue={block.type}
+      options={options}
+      onSelect={(type) =>
+        context.setScheme({
+          action: "setType",
+          layerTarget: layerIndex,
+          blockTarget: blockIndex,
+          type: type,
+        })
+      }
+    />
+  );
+
+  const widthSetter = (
+    <NumberSetter
+      isSmall={true}
+      initValue={Number(block.widthFeet)}
+      placeholder={"width"}
+      onChange={(newWidth) =>
+        context.setScheme({
+          action: "setWidth",
+          layerTarget: layerIndex,
+          blockTarget: blockIndex,
+          newWidth: newWidth,
+        })
+      }
+    />
+  );
+
+  const actionButtons = (
+    <AddRemoveHideButtons
+      visible={block.show}
+      level={"block"}
+      layerTarget={layerIndex}
+      blockTarget={blockIndex}
+    />
+  );
   return (
     <div className={schemeSetterStyles.block}>
-      <DropdownSelect
-        variant={"primary"}
-        initValue={block.type}
-        options={options}
-        onSelect={(type) =>
-          context.setScheme({
-            action: "setType",
-            layerTarget: layerIndex,
-            blockTarget: blockIndex,
-            type: type,
-          })
-        }
-      />
-      <NumberSetter
-        isSmall={true}
-        initValue={0}
-        placeholder={"width"}
-        onChange={(newWidth) => {
-          console.log(newWidth);
-        }}
-      />
+      {typeSetter}
+      {widthSetter}
+      {actionButtons}
     </div>
   );
 }

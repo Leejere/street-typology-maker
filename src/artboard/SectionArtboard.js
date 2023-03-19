@@ -13,6 +13,7 @@ const BOARD_HGT_PXS = 500;
 
 function SectionArtboard() {
   const context = useContext(Context);
+  console.log(context.scheme);
 
   // Street dimensions
   const streetWidthFt =

@@ -28,6 +28,7 @@ const initScheme = [
     show: true,
     blocks: [
       {
+        show: true,
         type: "sidewalk",
         onCurb: true,
         widthFeet: 12,
@@ -35,6 +36,7 @@ const initScheme = [
         pop: null,
       },
       {
+        show: true,
         type: "drivelane",
         onCurb: false,
         widthFeet: 11,
@@ -42,6 +44,7 @@ const initScheme = [
         pop: null,
       },
       {
+        show: true,
         type: "drivelane",
         onCurb: false,
         widthFeet: 11,
@@ -49,6 +52,7 @@ const initScheme = [
         pop: null,
       },
       {
+        show: true,
         type: "sidewalk",
         onCurb: true,
         widthFeet: 12,
@@ -64,6 +68,7 @@ const initScheme = [
     show: true,
     blocks: [
       {
+        show: true,
         type: "drivelane",
         onCurb: false,
         widthFeet: 11,
@@ -71,6 +76,7 @@ const initScheme = [
         pop: null,
       },
       {
+        show: true,
         type: "drivelane",
         onCurb: false,
         widthFeet: 11,
@@ -82,61 +88,82 @@ const initScheme = [
 ];
 
 const schemeReducer = (scheme, action) => {
-  const newScheme = [...scheme];
+  const getTargetAndParent = () => {
+    if (
+      action.level === "layer" ||
+      action.action === "rename" ||
+      action.action === "setHeight"
+    ) {
+      return {
+        parent: scheme,
+        target: scheme[action.layerTarget],
+      };
+    } else {
+      const parent = scheme[action.layerTarget].blocks;
+      return {
+        parent,
+        target: parent[action.blockTarget],
+      };
+    }
+  };
 
-  // Access the target: either a layer (object) or a block (object)
-  let target;
-  let parent;
-  if (
-    action.level === "layer" ||
-    action.action === "rename" ||
-    action.action === "setHeight"
-  ) {
-    // Targing a layer
-    parent = newScheme;
-    target = parent[action.layerTarget];
-  } else {
-    // Targing a block
-    parent = newScheme[action.layerTarget];
-    target = parent.blocks[action.blockTarget];
-  }
+  let { target, parent } = getTargetAndParent();
+  const targetIndex = parent.indexOf(target);
 
   switch (action.action) {
     case "hide":
-      target.show = false;
+      parent[targetIndex] = { ...target, show: false };
       break;
     case "show":
-      target.show = true;
+      parent[targetIndex] = { ...target, show: true };
       break;
-    case "remove": {
-      const canRemove = parent.length > 1;
-      if (canRemove) {
-        parent.splice(parent.indexOf(target), 1);
+    case "remove":
+      if (parent.length > 1) {
+        parent = [
+          ...parent.slice(0, targetIndex),
+          ...parent.slice(targetIndex + 1),
+        ];
       }
       break;
-    }
     case "add": {
       const added = { ...target };
       if (action.level === "layer") {
         added.name = `Copied ${added.name}`;
       }
-      parent.splice(parent.indexOf(target) + 1, 0, added);
+      parent = [
+        ...parent.slice(0, targetIndex + 1),
+        added,
+        ...parent.slice(targetIndex + 1),
+      ];
       break;
     }
     case "rename":
-      target.name = action.name;
+      parent[targetIndex] = { ...target, name: action.name };
       break;
     case "setHeight":
-      target.heightFeet = action.newHeight;
+      parent[targetIndex] = { ...target, heightFeet: action.newHeight };
+      break;
+    case "setWidth":
+      parent[targetIndex] = { ...target, widthFeet: action.newWidth };
       break;
     case "setType":
-      target.type = action.type;
+      parent[targetIndex] = { ...target, type: action.type };
       break;
     default:
       break;
   }
 
-  return newScheme;
+  if (
+    action.level === "layer" ||
+    action.action === "rename" ||
+    action.action === "setHeight"
+  ) {
+    return parent;
+  } else {
+    return scheme.map((layer, index) =>
+      index === action.layerTarget ? { ...layer, blocks: parent } : layer
+    );
+  }
 };
 
 // Initial buildings ane reducer function to set buildings

@@ -11,7 +11,7 @@ const formatNumber = (number) => {
 
 const deformatNumber = (string) => {
   const number = string.replace(/\D/g, "") || 0;
-  return number;
+  return Number(number);
 };
 
 const positionCursor = (cursorPosition, target) => {

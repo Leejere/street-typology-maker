@@ -7,17 +7,17 @@ import "../styles/styles.scss";
 
 function DropdownSelect({ variant, initValue, options, onSelect }) {
   const [selectedValue, setSelectedValue] = useState(initValue);
-  const dropdownItems = Object.keys(options).map((type, index) => (
+  const dropdownItems = Object.keys(options).map((value, index) => (
     <Dropdown.Item
       key={index}
       className={schemeSetterStyles.dropdownItem}
       onClick={() => {
-        onSelect(type);
-        setSelectedValue(type);
+        onSelect(value);
+        setSelectedValue(value);
       }}
     >
-      <FontAwesomeIcon icon={options[type].icon} />
-      {options[type].label}
+      <FontAwesomeIcon icon={options[value].icon} />
+      {options[value].label}
     </Dropdown.Item>
   ));
   return (

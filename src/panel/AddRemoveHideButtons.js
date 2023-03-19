@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import { Context } from "..";
 import PropTypes from "prop-types";
 
-function AddRemoveHideButtons({ visible, level, layerTarget }) {
+function AddRemoveHideButtons({ visible, level, layerTarget, blockTarget }) {
   const context = useContext(Context);
   const setHideIcon = visible ? "visibility" : "visibility_off";
   const setHideAction = visible ? "hide" : "show";
@@ -37,6 +37,7 @@ function AddRemoveHideButtons({ visible, level, layerTarget }) {
         context.setScheme({
           level: level,
           layerTarget: layerTarget,
+          blockTarget: blockTarget,
           action: item.action,
         })
       }
@@ -51,6 +52,7 @@ AddRemoveHideButtons.propTypes = {
   visible: PropTypes.bool,
   level: PropTypes.string, // either "layer" or "block"
   layerTarget: PropTypes.number, // index of the target that the buttons control
+  blockTarget: PropTypes.number,
 };
 
 export default AddRemoveHideButtons;
